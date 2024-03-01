@@ -55,19 +55,19 @@ public class SecurityConfig {
 
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-		http.csrf(AbstractHttpConfigurer::disable).authorizeHttpRequests((request) -> {
-			request.requestMatchers("/", "/home", "/api/v1/login/**", "/api/v1/register/**", "/api/v1/refresh")
+		http.cors(c -> c.disable()).csrf(AbstractHttpConfigurer::disable).authorizeHttpRequests((request) -> {
+			request.requestMatchers("/*", "/home/", "/api/v1/login/**", "/api/v1/register/**", "/api/v1/refresh","/api/v1/products/**","/api/v1/categories/**")
 					.permitAll().requestMatchers("/api/v1/users/**").hasAnyAuthority("ADMIN")
 					.requestMatchers("/api/v1/phones/**").hasAnyAuthority("USER", "ADMIN").anyRequest().authenticated();
 
 		}).formLogin((request) -> {
 			request.disable();
 		}).sessionManagement(manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-				.exceptionHandling(e -> e.accessDeniedHandler(accessDeniedHandler).authenticationEntryPoint(authenticationEntryPoint))
 				.authenticationProvider(authenticationProvider())
 				.addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter.class).logout((request) -> {
 					request.disable();
-				});
+				}).exceptionHandling(e -> e.accessDeniedHandler(accessDeniedHandler)
+						.authenticationEntryPoint(authenticationEntryPoint));
 		return http.build();
 	}
 

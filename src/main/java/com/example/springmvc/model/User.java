@@ -14,11 +14,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import com.example.springmvc.validate.CapitalizedConstraint;
 
 import jakarta.persistence.*;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
@@ -42,7 +37,6 @@ public class User implements UserDetails {
 
 	@NotNull
 	@NotBlank(message = "required name")
-	@CapitalizedConstraint
 	@Length(min = 2, message = "name is so short")
 	@Length(max = 50, message = "name is so long")
 	@Column
@@ -55,6 +49,9 @@ public class User implements UserDetails {
 	private String email;
 	@Column
 	private String role;
+	
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+	private List<Bills> bills;
 
 	@NotBlank(message = "required password")
 	@Column

@@ -9,14 +9,17 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.springmvc.aspect.LogExecutionTime;
 import com.example.springmvc.config.CustomUserDetails;
 import com.example.springmvc.dto.ReqRes;
+import com.example.springmvc.model.Login;
 import com.example.springmvc.model.User;
 import com.example.springmvc.payload.LoginRequest;
 import com.example.springmvc.payload.LoginResponse;
@@ -37,16 +40,17 @@ public class LoginController {
 //	private JwtTokenProvider tokenProvider;
 
 	@PostMapping(path = "login")
-	public ResponseEntity<ReqRes> login(@Valid @RequestBody ReqRes loginRequest) {
-		return ResponseEntity.ok(authService.signIn(loginRequest));
+	public ResponseEntity<Login> login(@Valid @RequestBody Login loginRequest, BindingResult bindingResult) throws Exception {
+		return ResponseEntity.ok(authService.signIn(loginRequest,bindingResult));
 	}
 
 	@PostMapping(path = "register")
-	public ResponseEntity<ReqRes> register(@Valid @RequestBody ReqRes signupRequest) {
-		return ResponseEntity.ok(authService.signUp(signupRequest));
+	public ResponseEntity<ReqRes> register(@Valid @RequestBody ReqRes signupRequest, BindingResult bindingResult) {
+		return ResponseEntity.ok(authService.signUp(signupRequest,bindingResult));
 	}
 
 	@GetMapping("login")
+	@LogExecutionTime
 	public RandomStuff login() {
 		return new RandomStuff("ok");
 	}

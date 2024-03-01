@@ -10,6 +10,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.Mapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.DispatcherServlet;
 
 import com.example.springmvc.model.User;
 import com.example.springmvc.repository.UserRepository;
@@ -21,6 +22,7 @@ public class SpringMvcApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(SpringMvcApplication.class, args);
 
+		
 	}
 	
 
