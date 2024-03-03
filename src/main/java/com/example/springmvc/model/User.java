@@ -49,9 +49,11 @@ public class User implements UserDetails {
 	private String email;
 	@Column
 	private String role;
-	
+
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-	private List<Bills> bills;
+	private List<Oders> bills;
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+	private List<ProductReviews> productReviews;
 
 	@NotBlank(message = "required password")
 	@Column
@@ -68,7 +70,7 @@ public class User implements UserDetails {
 
 	}
 
-	public User(long id, String name, String email, String password, LocalDate dob,String role) {
+	public User(long id, String name, String email, String password, LocalDate dob, String role) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -125,7 +127,6 @@ public class User implements UserDetails {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
 
 	public String getRole() {
 		return role;
@@ -138,7 +139,7 @@ public class User implements UserDetails {
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		// TODO Auto-generated method stub
-		return  List.of(new SimpleGrantedAuthority(role));
+		return List.of(new SimpleGrantedAuthority(role));
 	}
 
 	@Override

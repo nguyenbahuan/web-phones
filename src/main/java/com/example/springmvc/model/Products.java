@@ -46,14 +46,18 @@ public class Products {
 	
 	@ManyToMany
     @JoinTable(
-        name = "product_bill",
+        name = "product_oder",
         joinColumns = @JoinColumn(name = "product_id"),
-        inverseJoinColumns = @JoinColumn(name = "bill_id")
+        inverseJoinColumns = @JoinColumn(name = "oder_id")
     )
-    private Set<Bills> bills = new HashSet<>();
+    private Set<Oders> oders = new HashSet<>();
 
 	@OneToMany()
 	private List<Images> images;
+	
+	@OneToMany()
+	private List<ProductReviews> productReviews;
+	
 	
 	public Products() {
 
