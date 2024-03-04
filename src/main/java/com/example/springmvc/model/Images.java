@@ -1,5 +1,7 @@
 package com.example.springmvc.model;
 
+import java.util.Date;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -15,12 +17,17 @@ public class Images {
 	@Id
 	@GeneratedValue
 	private Long id;
-	
-	private String filePath;
-	
+
+	private String imageName;
+
+	private Date createdDate;
+
+	private Date updatedDate;
+
+	private boolean isActive;
 
 	@ManyToOne()
 	@JoinColumn(name = "product_id", nullable = false)
 	private Products products;
-	
+
 }

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
 import com.example.springmvc.dto.ReqRes;
+import com.example.springmvc.jwt.JWTUtils;
 import com.example.springmvc.model.Login;
 import com.example.springmvc.model.User;
 import com.example.springmvc.repository.UserRepository;
@@ -48,7 +49,7 @@ public class AuthService {
 				ourUsers.setName(registrationRequest.getName());
 				ourUsers.setDob(registrationRequest.getDob());
 				ourUsers.setPassword(passwordEncoder.encode(registrationRequest.getPassword()));
-				ourUsers.setRole(registrationRequest.getRole());
+//				ourUsers.setRole(registrationRequest.getRole());
 				User ourUserResult = userRepository.save(ourUsers);
 				if (ourUserResult != null && ourUserResult.getId() > 0) {
 //					resp.setUser(ourUserResult);

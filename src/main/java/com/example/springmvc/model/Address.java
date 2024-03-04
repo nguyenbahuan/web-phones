@@ -8,28 +8,27 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.Data;
 
+@Data
 @Entity
-@Table(name = "product_reviews")
-public class ProductReviews {
+@Table(name = "address")
+public class Address {
 	@Id
 	@GeneratedValue
 	private Long id;
-	private int rating;
-	private String comment;
-	
+
+	private String address;
+
 	private Date createdDate;
-	
+
 	private Date updatedDate;
 
 	private boolean isActive;
 
-	@ManyToOne()
-	@JoinColumn(name = "product_id", nullable = false)
-	private Products products;
-
-	@ManyToOne()
+	@ManyToOne
 	@JoinColumn(name = "user_id", nullable = false)
 	private User user;
-
+	
+	
 }

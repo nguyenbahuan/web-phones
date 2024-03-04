@@ -1,6 +1,7 @@
 package com.example.springmvc.model;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
@@ -22,6 +23,11 @@ public class Categories {
 	@Column
 	private String name;
 //
+	
+	private Date createdDate;
+	private Date updatedDate;
+	
+	private boolean isActive;
 	@OneToMany(mappedBy = "categories", cascade = CascadeType.ALL)
 	@ToString.Exclude
 	@EqualsAndHashCode.Exclude

@@ -1,11 +1,13 @@
 package com.example.springmvc.model;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import org.hibernate.validator.constraints.Length;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -27,38 +29,44 @@ public class Products {
 	@GeneratedValue
 	private long id;
 
-	
 	@NotNull(message = "required name")
-	@Length(min = 1 , message = "name phone so short")
+	@Length(min = 1, message = "name phone so short")
 	@Column
-	String name;
+	private String name;
 
 	@NotNull(message = "required price")
 	@Column
-	int price;
+	private int price;
+
+	@Column
+	private String description;
+	@Column
+	private int totalQuantity;
+
+	private Date createdDate;
+
+	private Date updatedDate;
+
+	private boolean isActive;
 
 	@ManyToOne()
 	@JoinColumn(name = "category_id", nullable = false)
 	@ToString.Exclude
 	@EqualsAndHashCode.Exclude
 	private Categories categories;
-	
-	
-	@ManyToMany
-    @JoinTable(
-        name = "product_oder",
-        joinColumns = @JoinColumn(name = "product_id"),
-        inverseJoinColumns = @JoinColumn(name = "oder_id")
-    )
-    private Set<Oders> oders = new HashSet<>();
 
-	@OneToMany()
+	@OneToMany(mappedBy = "products", cascade = CascadeType.ALL)
 	private List<Images> images;
-	
-	@OneToMany()
+
+	@OneToMany(mappedBy = "products", cascade = CascadeType.ALL)
 	private List<ProductReviews> productReviews;
-	
-	
+
+	@OneToMany(mappedBy = "products", cascade = CascadeType.ALL)
+	private List<OdersDetails> odersDetails;
+
+	@ManyToMany(mappedBy = "products", cascade = CascadeType.ALL)
+	private Set<Discounts> discounts = new HashSet<>();
+
 	public Products() {
 
 	}
@@ -104,5 +112,5 @@ public class Products {
 	public void setId(long id) {
 		this.id = id;
 	}
-	
+
 }

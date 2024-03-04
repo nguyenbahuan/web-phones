@@ -1,6 +1,7 @@
 package com.example.springmvc.dto;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.Period;
 
 import jakarta.persistence.Transient;
@@ -15,6 +16,18 @@ public class UserDTO {
 	private String password;
 
 	private LocalDate dob;
+	
+	private RoleDTO role;
+	
+	private String phoneNumber;
+
+	private String address;
+
+	private LocalDateTime createdDate;
+
+	private LocalDateTime updatedDate;
+
+	private boolean isActive;
 
 	@Transient
 	private int age;
@@ -30,6 +43,57 @@ public class UserDTO {
 		this.email = email;
 		this.password = password;
 		this.dob = dob;
+	}
+	
+
+	
+
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public LocalDateTime getCreatedDate() {
+		return createdDate;
+	}
+
+	public void setCreatedDate(LocalDateTime createdDate) {
+		this.createdDate = createdDate;
+	}
+
+	public LocalDateTime getUpdatedDate() {
+		return updatedDate;
+	}
+
+	public void setUpdatedDate(LocalDateTime updatedDate) {
+		this.updatedDate = updatedDate;
+	}
+
+	public boolean isActive() {
+		return isActive;
+	}
+
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
+	}
+
+	public RoleDTO getRole() {
+		return role;
+	}
+
+	public void setRole(RoleDTO role) {
+		this.role = role;
 	}
 
 	public long getId() {

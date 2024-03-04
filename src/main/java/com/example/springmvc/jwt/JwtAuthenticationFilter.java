@@ -12,7 +12,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.example.springmvc.service.JWTUtils;
 import com.example.springmvc.service.UserService;
 
 import jakarta.servlet.FilterChain;

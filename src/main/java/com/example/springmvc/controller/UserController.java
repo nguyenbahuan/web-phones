@@ -2,6 +2,7 @@ package com.example.springmvc.controller;
 
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.springmvc.dto.UserDTO;
 import com.example.springmvc.model.User;
 import com.example.springmvc.service.UserService;
 
@@ -38,7 +39,7 @@ public class UserController {
 	}
 
 	@GetMapping
-	public List<User> getUsers() {
+	public List<UserDTO> getUsers() {
 		return userService.getUsers();
 	}
 

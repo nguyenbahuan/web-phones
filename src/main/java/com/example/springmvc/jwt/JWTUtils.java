@@ -1,4 +1,4 @@
-package com.example.springmvc.service;
+package com.example.springmvc.jwt;
 
 import java.nio.charset.StandardCharsets;
 import java.sql.Date;

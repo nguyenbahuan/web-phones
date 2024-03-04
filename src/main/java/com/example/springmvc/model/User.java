@@ -1,8 +1,10 @@
 package com.example.springmvc.model;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.Period;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.validator.constraints.Length;
@@ -29,7 +31,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table
+@Table(name = "user")
 public class User implements UserDetails {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -44,16 +46,20 @@ public class User implements UserDetails {
 
 	@Email(message = "Invalid email")
 	@NotBlank(message = "required email")
-//	@Pattern(regexp = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\\\.[A-Z]{2,6}$" , message = "Invalid email")
 	@Column
 	private String email;
-	@Column
-	private String role;
+
+	@ManyToOne()
+	@JoinColumn(name = "role_id", nullable = false)
+	private Role role;
 
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 	private List<Oders> bills;
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 	private List<ProductReviews> productReviews;
+
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+	private List<Address> addresses;
 
 	@NotBlank(message = "required password")
 	@Column
@@ -66,11 +72,21 @@ public class User implements UserDetails {
 	@Transient
 	private int age;
 
+	private String phoneNumber;
+
+	private String address;
+
+	private LocalDateTime createdDate;
+
+	private LocalDateTime updatedDate;
+
+	private boolean isActive;
+
 	public User() {
 
 	}
 
-	public User(long id, String name, String email, String password, LocalDate dob, String role) {
+	public User(long id, String name, String email, String password, LocalDate dob, Role role) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -78,6 +94,70 @@ public class User implements UserDetails {
 		this.password = password;
 		this.dob = dob;
 		this.role = role;
+	}
+
+	public List<Oders> getBills() {
+		return bills;
+	}
+
+	public void setBills(List<Oders> bills) {
+		this.bills = bills;
+	}
+
+	public List<ProductReviews> getProductReviews() {
+		return productReviews;
+	}
+
+	public void setProductReviews(List<ProductReviews> productReviews) {
+		this.productReviews = productReviews;
+	}
+
+	public List<Address> getAddresses() {
+		return addresses;
+	}
+
+	public void setAddresses(List<Address> addresses) {
+		this.addresses = addresses;
+	}
+
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public LocalDateTime getCreatedDate() {
+		return createdDate;
+	}
+
+	public void setCreatedDate(LocalDateTime createdDate) {
+		this.createdDate = createdDate;
+	}
+
+	public LocalDateTime getUpdatedDate() {
+		return updatedDate;
+	}
+
+	public void setUpdatedDate(LocalDateTime updatedDate) {
+		this.updatedDate = updatedDate;
+	}
+
+	public boolean isActive() {
+		return isActive;
+	}
+
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
 	}
 
 	public long getId() {
@@ -128,18 +208,18 @@ public class User implements UserDetails {
 		this.password = password;
 	}
 
-	public String getRole() {
+	public Role getRole() {
 		return role;
 	}
 
-	public void setRole(String role) {
+	public void setRole(Role role) {
 		this.role = role;
 	}
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		// TODO Auto-generated method stub
-		return List.of(new SimpleGrantedAuthority(role));
+		return List.of(new SimpleGrantedAuthority(role.getName()));
 	}
 
 	@Override

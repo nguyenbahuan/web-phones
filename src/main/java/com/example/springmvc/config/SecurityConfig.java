@@ -56,9 +56,10 @@ public class SecurityConfig {
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http.cors(c -> c.disable()).csrf(AbstractHttpConfigurer::disable).authorizeHttpRequests((request) -> {
-			request.requestMatchers("/*", "/home/", "/api/v1/login/**", "/api/v1/register/**", "/api/v1/refresh","/api/v1/products/**","/api/v1/categories/**")
-					.permitAll().requestMatchers("/api/v1/users/**").hasAnyAuthority("ADMIN")
-					.requestMatchers("/api/v1/phones/**").hasAnyAuthority("USER", "ADMIN").anyRequest().authenticated();
+			request.requestMatchers("/*", "/home/", "/api/v1/login/**", "/api/v1/register/**", "/api/v1/refresh",
+					"/api/v1/products/**", "/api/v1/categories/**", "/admin/login", "/admin/register").permitAll()
+					.requestMatchers("/api/v1/users/**").hasAnyAuthority("ADMIN").requestMatchers("/api/v1/phones/**")
+					.hasAnyAuthority("USER", "ADMIN").anyRequest().authenticated();
 
 		}).formLogin((request) -> {
 			request.disable();

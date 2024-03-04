@@ -1,8 +1,10 @@
 package com.example.springmvc.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -14,6 +16,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.example.springmvc.config.CustomUserDetails;
+import com.example.springmvc.dto.RoleDTO;
+import com.example.springmvc.dto.UserDTO;
 //import com.example.springmvc.config.CustomUserDetails;
 import com.example.springmvc.model.User;
 import com.example.springmvc.repository.UserRepository;
@@ -26,13 +30,15 @@ public class UserService implements UserDetailsService {
 	private final UserRepository userRepository;
 
 	@Autowired
+	private ModelMapper modelMapper;
+
+	@Autowired
 	public UserService(UserRepository userRepository) {
 		this.userRepository = userRepository;
 	}
 
 //	private PasswordEncoder passwordEncoder;
-	
-	
+
 	public User loadUserByEmail(String email) {
 		Optional<User> user = userRepository.findUserByEmail(email);
 		if (user.isPresent()) {
@@ -43,6 +49,7 @@ public class UserService implements UserDetailsService {
 		}
 
 	}
+
 	public User loadUserById(Long userId) {
 		Optional<User> user = userRepository.findById(userId);
 		if (user.isPresent()) {
@@ -53,10 +60,17 @@ public class UserService implements UserDetailsService {
 		}
 
 	}
-	
 
-	public List<User> getUsers() {
-		return userRepository.findAll();
+	public List<UserDTO> getUsers() {
+		List<UserDTO> list = new ArrayList<>();
+		List<User> users = userRepository.findAll();
+		users.forEach(u -> {
+			UserDTO user = modelMapper.map(u, UserDTO.class);
+			user.setRole( modelMapper.map(u.getRole(), RoleDTO.class));
+			list.add(user);
+		});
+//		 modelMapper.
+		return list;
 	}
 
 	public void addNewUser(User user) {
@@ -95,8 +109,6 @@ public class UserService implements UserDetailsService {
 		}
 
 	}
-
-	
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
