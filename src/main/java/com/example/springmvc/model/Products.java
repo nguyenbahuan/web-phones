@@ -1,5 +1,6 @@
 package com.example.springmvc.model;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -43,9 +44,9 @@ public class Products {
 	@Column
 	private int totalQuantity;
 
-	private Date createdDate;
+	private LocalDateTime createdDate;
 
-	private Date updatedDate;
+	private LocalDateTime updatedDate;
 
 	private boolean isActive;
 
@@ -71,10 +72,15 @@ public class Products {
 
 	}
 
-	public Products(String name, int price, Categories categories) {
+	public Products(String name, String description, int price, Categories categories, int totalQuantity,
+			LocalDateTime createdDate, boolean isActive) {
 		this.name = name;
+		this.description = description;
 		this.price = price;
 		this.categories = categories;
+		this.totalQuantity = totalQuantity;
+		this.createdDate = createdDate;
+		this.isActive = isActive;
 	}
 
 	public Long getId() {
@@ -111,6 +117,78 @@ public class Products {
 
 	public void setId(long id) {
 		this.id = id;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public int getTotalQuantity() {
+		return totalQuantity;
+	}
+
+	public void setTotalQuantity(int totalQuantity) {
+		this.totalQuantity = totalQuantity;
+	}
+
+	public LocalDateTime getCreatedDate() {
+		return createdDate;
+	}
+
+	public void setCreatedDate(LocalDateTime createdDate) {
+		this.createdDate = createdDate;
+	}
+
+	public LocalDateTime getUpdatedDate() {
+		return updatedDate;
+	}
+
+	public void setUpdatedDate(LocalDateTime updatedDate) {
+		this.updatedDate = updatedDate;
+	}
+
+	public boolean isActive() {
+		return isActive;
+	}
+
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
+	}
+
+	public List<Images> getImages() {
+		return images;
+	}
+
+	public void setImages(List<Images> images) {
+		this.images = images;
+	}
+
+	public List<ProductReviews> getProductReviews() {
+		return productReviews;
+	}
+
+	public void setProductReviews(List<ProductReviews> productReviews) {
+		this.productReviews = productReviews;
+	}
+
+	public List<OdersDetails> getOdersDetails() {
+		return odersDetails;
+	}
+
+	public void setOdersDetails(List<OdersDetails> odersDetails) {
+		this.odersDetails = odersDetails;
+	}
+
+	public Set<Discounts> getDiscounts() {
+		return discounts;
+	}
+
+	public void setDiscounts(Set<Discounts> discounts) {
+		this.discounts = discounts;
 	}
 
 }

@@ -36,16 +36,15 @@ public class ProductController {
 
 	@Autowired
 	private ProductsService productsService;
-	
-	@Autowired
-	private ModelMapper modelMapper;
 
-//	@GetMapping()
-//	public List<ProductsDTO> getPhones() {
-//		return productsService.getAllProduct();
-//	}
+	@GetMapping("get-all")
+	public List<ProductsDTO> getPhones() {
+		return productsService.getAllProduct();
+	}
+
 	@GetMapping()
-	public List<ProductsDTO> getProductByCategory(@RequestParam(required = true) String nameCategory) {
+	public List<ProductsDTO> getProductByCategory(
+			@RequestParam(name = "category", required = false) String nameCategory) {
 		return productsService.getAllProductByCategory(nameCategory);
 	}
 

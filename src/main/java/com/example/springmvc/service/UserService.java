@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -38,6 +39,19 @@ public class UserService implements UserDetailsService {
 	}
 
 //	private PasswordEncoder passwordEncoder;
+	public void saveUser(User user) {
+		userRepository.save(user);
+	}
+	public Optional<User> findUserbyEmail(String email) {
+		Optional<User> user = userRepository.findUserByEmail(email);
+		if (user.isPresent()) {
+			return user;
+		} else {
+
+			return user;
+		}
+		
+	}
 
 	public User loadUserByEmail(String email) {
 		Optional<User> user = userRepository.findUserByEmail(email);
@@ -66,7 +80,7 @@ public class UserService implements UserDetailsService {
 		List<User> users = userRepository.findAll();
 		users.forEach(u -> {
 			UserDTO user = modelMapper.map(u, UserDTO.class);
-			user.setRole( modelMapper.map(u.getRole(), RoleDTO.class));
+			user.setRole(modelMapper.map(u.getRole(), RoleDTO.class));
 			list.add(user);
 		});
 //		 modelMapper.

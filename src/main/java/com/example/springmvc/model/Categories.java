@@ -1,6 +1,6 @@
 package com.example.springmvc.model;
 
-import java.util.Collection;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -22,11 +22,12 @@ public class Categories {
 	private Long id;
 	@Column
 	private String name;
+
 //
-	
-	private Date createdDate;
-	private Date updatedDate;
-	
+
+	private LocalDateTime createdDate;
+	private LocalDateTime updatedDate;
+
 	private boolean isActive;
 	@OneToMany(mappedBy = "categories", cascade = CascadeType.ALL)
 	@ToString.Exclude
@@ -37,10 +38,11 @@ public class Categories {
 
 	}
 
-	public Categories(String name) {
+	public Categories(String name, LocalDateTime createdDate, boolean isActive) {
 
 		this.name = name;
-
+		this.createdDate = createdDate;
+		this.isActive = isActive;
 	}
 
 	public Long getId() {
@@ -64,6 +66,38 @@ public class Categories {
 	}
 
 	public void setPhones(List<Products> products) {
+		this.products = products;
+	}
+
+	public LocalDateTime getCreatedDate() {
+		return createdDate;
+	}
+
+	public void setCreatedDate(LocalDateTime createdDate) {
+		this.createdDate = createdDate;
+	}
+
+	public LocalDateTime getUpdatedDate() {
+		return updatedDate;
+	}
+
+	public void setUpdatedDate(LocalDateTime updatedDate) {
+		this.updatedDate = updatedDate;
+	}
+
+	public boolean isActive() {
+		return isActive;
+	}
+
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
+	}
+
+	public List<Products> getProducts() {
+		return products;
+	}
+
+	public void setProducts(List<Products> products) {
 		this.products = products;
 	}
 

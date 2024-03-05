@@ -1,17 +1,17 @@
-//package com.example.springmvc.config;
-//
-//import org.springframework.context.annotation.Configuration;
-//import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
-//import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-//
-//@Configuration
-//public class MvcConfig implements WebMvcConfigurer {
-//
-//	@Override
-//	public void addViewControllers(ViewControllerRegistry registry) {
-//		registry.addViewController("/home").setViewName("index");
-//		registry.addViewController("/").setViewName("index");
-//		registry.addViewController("/hello").setViewName("hello");
-//		registry.addViewController("/login").setViewName("login");
-//	}
-//}
+package com.example.springmvc.config;
+
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+@EnableWebMvc
+@Configuration
+public class MvcConfig implements WebMvcConfigurer {
+	@Override
+	public void addCorsMappings(CorsRegistry registry) {
+		registry.addMapping("reset-password").allowedOrigins("*").allowedMethods("GET", "POST", "PUT", "DELETE")
+				.allowedHeaders("*").allowCredentials(true);
+	}
+
+}

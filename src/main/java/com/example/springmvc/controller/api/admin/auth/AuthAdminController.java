@@ -35,5 +35,6 @@ public class AuthAdminController {
 		
 		return ResponseEntity.ok(loginService.register(request, bindingResult));
 	}
+	
 
 }
